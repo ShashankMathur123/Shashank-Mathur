@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Circular Linked List</title>
+	
+  	<link rel="stylesheet" href="css/zerogrid.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<!Code sprint icon below>
+	<link href='./images/icon.png' rel='icon' type='image/x-icon'/>
+    
+</head>
+<body>
+<div class="wrap-body zerogrid">
+<!--------------Header--------------->
+<header>
+	<div class="wrap-header">
+		
+		<div class="top">
+		</div>
+		
+		<div id="logo">
+			<h1>Code Sprint</h1>
+			<p>Here to help make coding easy</p>
+		</div>
+		
+		<nav>
+			<div class="wrap-nav">
+				<div class="menu">
+					<ul>
+						<li><a href="../index.html">Home</a></li>
+						<li><a href="C Programming.html">C Programming</a></li>
+						<li><a href="../Linear Data Structures/LDS.html">Linear Data Structures</a></li>
+						<li><a href="About Us.html">About Us</a></li>
+						<li><a href="Contact Us.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+	</div>
+</header>
+
+<!--------------Content--------------->
+<section id="content">
+	<div class="wrap-content">
+		<div class="row block">
+			<div id="main-content" class="col-2-3">
+				<div class="wrap-col">
+					<article>
+						<div class="heading">
+							<h2>Circular Linked List</h2>
+						</div>
+						<div class="content">
+							
+						<p>A circular linked list is basically a linear linked list that may be singly or doubly. The only difference is that there is no any NULL value terminating the list. In fact in the list every node points to the next node and last node points to the first node, thus forming a circle. Since it forms a circle with no end to stop hence it is called as circular linked list.In circular linked list there can be no starting or ending node, whole node can be traversed from any node. In order to traverse the circular linked list only once we need to traverse entire list until the starting node is not traversed again.<br><br></p>
+						 <strong> Example of Circular Linked List<br></strong>
+						 See the following C program for better clarification of Circular Linked List:<br>
+						 <pre>
+<code>#include<<x>stdio.h></code>
+<code>#include<<x>stdlib.h></code>
+struct Node;
+typedef struct Node * PtrToNode;
+typedef PtrToNode List;
+typedef PtrToNode Position;
+
+struct Node
+{
+    int e;
+    Position next;
+};
+
+void Insert(int x, List l, Position p)
+{
+    Position TmpCell;
+    TmpCell = (struct Node*) malloc(sizeof(struct Node));
+    if(TmpCell == NULL)
+        printf("Memory out of space\n");
+    else
+    {
+        TmpCell->e = x;
+        TmpCell->next = p->next;
+        p->next = TmpCell;
+    }
+}
+
+
+int isLast(Position p, List l)
+{
+    return (p->next == l);
+}
+
+Position FindPrevious(int x, List l)
+{
+    Position p = l;
+    while(p->next != l && p->next->e != x)
+        p = p->next;
+    return p;
+}
+
+Position Find(int x, List l)
+{
+    Position p = l->next;
+    while(p != l && p->e != x)
+        p = p->next;
+    return p;
+}
+
+void Delete(int x, List l)
+{
+    Position p, TmpCell;
+    p = FindPrevious(x, l);
+    if(!isLast(p, l))
+    {
+        TmpCell = p->next;
+        p->next = TmpCell->next;
+        free(TmpCell);
+    }
+    else
+        printf("Element does not exist!!!\n");
+}
+
+void Display(List l)
+{
+    printf("The list element are :: ");
+    Position p = l->next;
+    while(p != l)
+    {
+        printf("%d -> ", p->e);
+        p = p->next;
+    }
+}
+
+void main()
+{
+    int x, pos, ch, i;
+    List l, l1;
+    l = (struct Node *) malloc(sizeof(struct Node));
+    l->next = l;
+    List p = l;
+    printf("CIRCULAR LINKED LIST IMPLEMENTATION OF LIST ADT\n\n");
+    do
+    {
+        printf("\n\n1. INSERT\t 2. DELETE\t 3. FIND\t 4. PRINT\t 5. QUIT\n\nEnter the choice :: ");
+        scanf("%d", &ch);
+        switch(ch)
+        {
+            case 1:
+                p = l;
+                printf("Enter the element to be inserted :: ");
+                scanf("%d",&x);
+                printf("Enter the position of the element :: ");
+                scanf("%d",&pos);
+                for(i = 1; i < pos; i++)
+                {
+                    p = p->next;
+                }
+                Insert(x,l,p);
+                break;
+
+            case 2:
+                p = l;
+                printf("Enter the element to be deleted :: ");
+                scanf("%d",&x);
+                Delete(x,p);
+                break;
+
+            case 3:
+                p = l;
+                printf("Enter the element to be searched :: ");
+                scanf("%d",&x);
+                p = Find(x,p);
+                if(p == l)
+                    printf("Element does not exist!!!\n");
+                else
+                    printf("Element exist!!!\n");
+                break;
+
+            case 4:
+                Display(l);
+                break;
+        }
+    }while(ch<5);
+    return 0;
+}
+
+}
+</pre>
+</pre>
+<br><br>
+<strong>Output:</strong><br>
+<pre>
+Circular Linked List Implementation Of List LDI
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::1
+Enter the element to be inserted::4
+Enter the position of the element::1
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::1
+Enter the element to be inserted::6
+Enter the position of the element::2
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::1
+Enter the element to be inserted::8
+Enter the position of the element::3
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::1
+Enter the element to be inserted::10
+Enter the position of the element::4
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::1
+The list of element are:4->6->8->10->
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::2
+Enter the element to be deleted::8
+<ol type="1" align="center">
+	<li>Insert</li>
+	<li>Delete</li>
+	<li>Find</li>
+	<li>Print</li>
+	<li>Quit</li>
+</ol>
+Enter the choice::4
+The list of element are:4->6->10->
+		</pre>
+</p>				<div class="info">
+							<p>By Shashank Mathur on March 07, 2018</p>
+						</div>
+					</article>
+					
+					<section>
+						<h3>Leave a Comment</h3>
+						
+						<form id="contact-form" method="post">
+						    <fieldset>
+						        <label><input name="email" value="Email" onBlur="if(this.value=='') this.value='Email'" onFocus="if(this.value =='Email' ) this.value=''" /></label>
+						        <label><input name="subject" value="Subject" onBlur="if(this.value=='') this.value='Subject'" onFocus="if(this.value =='Subject' ) this.value=''" /></label>
+						        <textarea onBlur="if(this.value=='') this.value='Message'" onFocus="if(this.value =='Message' ) this.value=''">Message</textarea>
+						        <div class="buttons">
+						            <a href="#" onClick="document.getElementById('contact-form').reset()">Clear</a>
+						            <a href="#" onClick="document.getElementById('contact-form').submit()">Send</a>
+						        </div>											
+						    </fieldset>           
+						</form>
+					</section>
+				</div>
+			</div>
+			<div id="sidebar" class="col-1-3">
+				<div class="wrap-col">
+					<div class="box">
+						<div class="heading"><h2>Quick facts</h2></div>
+						<div class="content">
+							<p>Delete this and enter a fact about c programming here from google</p>
+						</div>
+					</div>
+					<div class="box">
+						<div class="heading"><h2>Quick Links</h2></div>
+						<div class="content">
+							<ul>
+								<li><a href="#">Arrays</a></li>
+								<li><a href="#">Linked Lists</a></li>
+								<li><a href="#">Stacks</a></li>
+								<li><a href="#">Queues</a></li>
+								<li><a href="#">Sorting</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="box">
+						<div class="heading"><h2>Popular Topics</h2></div>
+						<div class="content">
+							<div class="post">
+								<img src="images/img4.jpg" width="50px"/>
+								<h4><a href="#">Title here</a></h4>
+								<p>March 11 ,2018</p>
+							</div>
+							<div class="post">
+								<img src="images/img5.jpg" width="50px"/>
+								<h4><a href="#">Title here</a></h4>
+								<p>April 11 ,2018</p>
+							</div>
+							<div class="post">
+								<img src="images/img1.jpg" width="50px"/>
+								<h4><a href="#">Title here</a></h4>
+								<p>April 11 ,2018</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--------------Footer--------------->
+<footer>
+	<div class="wrap-footer">
+		<div class="row">
+			<div class="col-1-3">
+				<div class="wrap-col">
+					<div class="box">
+						<div class="heading"><h2>References</h2></div>
+						<div class="content">
+							<p>Enter all the refrences here</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-1-3">
+				<div class="wrap-col">
+					<div class="box">
+						<div class="heading"><h2>About Us</h2></div>
+						<div class="content">
+							<p>We are Code Sprint, passionate students of Web Devlopment and C programming studying at Manipal University Jaipur. Here to help you get started or get better at coding in C. We are here to help you with any queries that you might have and assist you with any coding problem that you might face. </p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-1-3">
+				<div class="wrap-col">
+					<div class="box">
+						<div class="heading"><h2>Contact Us</h2></div>
+						<div class="content">
+							<p>Ayush Mishra <br> Email- ayushmishra206@gmail.com <br> MB- +91 9654782071</p>
+							<p>Avi Negi <br> Email- avinegi3@gmail.com <br> MB- +91 8619611576</p>
+							<p>Shashank Mathur <br> Email- sdjmathur@gmail.com <br> MB- +91 7597723190</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="credits">
+		<p>Designed by Ayush Mishra<br> Contributions and Code assistance by Avi Negi and Shashank Mathur</p>
+	</div>
+</footer>
+
+</div>
+</body></html>
